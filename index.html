@@ -1,4 +1,4 @@
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob: data:; worker-src blob: https://cdnjs.cloudflare.com; connect-src https://api.anthropic.com https://cdnjs.cloudflare.com; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob: data:; worker-src blob: https://cdnjs.cloudflare.com; connect-src https://api.anthropic.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://huggingface.co https://*.huggingface.co https://*.hf.co https://raw.githubusercontent.com; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <script src="runtime.js"></script>
 <title>エンドロール</title>
@@ -510,7 +510,7 @@ function showAbout(){
 <script>
 "use strict";
 /* ---------- AI: 議事録づくり ---------- */
-const errCopy = e => ({ not_granted: "AIの利用が許可されていません。表示された確認で「許可」を選ぶと使えます。", rate_limited: "利用回数の上限に近づいています。しばらくしてからお試しください。", invalid_json: "うまく整理できませんでした。もう一度お試しください。", prompt_too_large: "文字起こしと資料が長すぎます。資料を減らしてお試しください。", sampling_disabled: "このアカウントではAIを利用できません。", session_expired: "ログインの有効期限が切れました。画面を開き直してください。", cancelled: "" }[e && e.code] ?? "AIとの通信に失敗しました。もう一度お試しください。");
+const errCopy = e => ({ not_granted: "AIの利用が許可されていません。表示された確認で「許可」を選ぶと使えます。", rate_limited: "利用回数の上限に近づいています。しばらくしてからお試しください。", invalid_json: "うまく整理できませんでした。もう一度お試しください。", prompt_too_large: "文字起こしと資料が長すぎます。資料を減らしてお試しください。", sampling_disabled: "このアカウントではAIを利用できません。", session_expired: "ログインの有効期限が切れました。画面を開き直してください。", no_webgpu: "このブラウザでは端末内AIを使えません。最新の Edge / Chrome（PC）でお試しください。", model_load: "AIの準備または実行に失敗しました。「AIの設定」から準備をやり直してください。", cancelled: "" }[e && e.code] ?? "AIとの通信に失敗しました。もう一度お試しください。");
 const rerender = () => { const k = $("#body") ? $("#body").scrollTop : 0; renderMain(); const b = $("#body"); if(b) b.scrollTop = k; };
 let progT = 0;
 
