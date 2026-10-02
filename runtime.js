@@ -98,7 +98,7 @@
         engineKey = key;
         setProgress(null);
         return engine;
-      } catch (e) { engine = null; setProgress(null); throw { code: "model_load" }; }
+      } catch (e) { console.error("[endroll] model load", e); engine = null; setProgress(null); throw { code: "model_load" }; }
       finally { loading = null; }
     })();
     return loading;
@@ -122,6 +122,7 @@
       }
     } catch (err) {
       if (sig && sig.aborted) throw { code: "cancelled" };
+      console.error("[endroll] generate", err);
       throw { code: /context|exceed|too (long|large)/i.test(String(err && (err.name + err.message))) ? "prompt_too_large" : "model_load" };
     } finally { if (sig) sig.removeEventListener("abort", stop); }
     if (sig && sig.aborted) throw { code: "cancelled" };
