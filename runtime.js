@@ -104,7 +104,7 @@
     return loading;
   }
 
-  async function callLocal(messages, opts, json) {
+  async function callLocal(messages, opts) {
     if (!ready()) { if (!LS.get("endroll_local_ok")) { openDialog(); throw { code: "not_granted" }; } await loadEngine(); }
     const e = engine, sig = opts.signal;
     if (sig && sig.aborted) throw { code: "cancelled" };
@@ -113,8 +113,7 @@
     let text = "";
     try {
       const it = await e.chat.completions.create({
-        messages, stream: true, temperature: 0.2, max_tokens: 4096,
-        ...(json ? { response_format: { type: "json_object" } } : {})
+        messages, stream: true, temperature: 0.2, max_tokens: 4096
       });
       for await (const ch of it) {
         const d = ch.choices[0] && ch.choices[0].delta && ch.choices[0].delta.content;
@@ -168,7 +167,7 @@
     return { text };
   }
 
-  const call = (messages, opts, json) => getMode() === "cloud" ? callCloud(messages, opts || {}) : callLocal(messages, opts || {}, json);
+  const call = (messages, opts, json) => getMode() === "cloud" ? callCloud(messages, opts || {}) : callLocal(messages, opts || {});
   const sample = async (messages, opts) => call(messages, opts, false);
   sample.json = async (prompt, opts) => {
     const { text } = await call([{ role: "user", content: prompt }], opts, true);
